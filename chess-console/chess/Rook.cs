@@ -12,6 +12,67 @@ namespace chess_console.chess
 
         }
 
+        public override bool[,] PosibleMovements()
+        {
+            bool[,] posibleMovements = new bool[Board.Lines, Board.Columns];
+
+            Position posiblePosition = new Position(0, 0);
+
+            // UP
+            posiblePosition.DefineValues(Position.Line - 1, Position.Column);
+            while(Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+
+                if (Board.GetPiece(posiblePosition) != null && Board.GetPiece(posiblePosition).Color != Color)
+                {
+                    break;
+                }
+                posiblePosition.Line -= 1;
+            }
+
+            // DOWN
+            posiblePosition.DefineValues(Position.Line + 1, Position.Column);
+            while (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+
+                if (Board.GetPiece(posiblePosition) != null && Board.GetPiece(posiblePosition).Color != Color)
+                {
+                    break;
+                }
+                posiblePosition.Line += 1;
+            }
+
+            // RIGHT
+            posiblePosition.DefineValues(Position.Line, Position.Column + 1);
+            while (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+
+                if (Board.GetPiece(posiblePosition) != null && Board.GetPiece(posiblePosition).Color != Color)
+                {
+                    break;
+                }
+                posiblePosition.Column += 1;
+            }
+
+            // LEFT
+            posiblePosition.DefineValues(Position.Line, Position.Column - 1);
+            while (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+
+                if (Board.GetPiece(posiblePosition) != null && Board.GetPiece(posiblePosition).Color != Color)
+                {
+                    break;
+                }
+                posiblePosition.Column -= 1;
+            }
+
+            return posibleMovements;
+        }
+
         public override string ToString()
         {
             return "R";

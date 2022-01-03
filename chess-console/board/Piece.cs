@@ -4,7 +4,7 @@ using System.Text;
 
 namespace chess_console.board
 {
-    class Piece
+    abstract class Piece
     {
         public Position Position { get; set; }
         public Color Color { get; protected set; }
@@ -18,10 +18,17 @@ namespace chess_console.board
             Position = null;
             MovementsCount = 0;
         }
-        
+        protected bool CanMoveTo(Position position)
+        {
+            Piece piece = Board.GetPiece(position);
+            return piece == null || piece.Color != Color;
+        }
+
         public void IncrementMovementsCount()
         {
             MovementsCount++;
         }
+
+        public abstract bool[,] PosibleMovements();
     }
 }

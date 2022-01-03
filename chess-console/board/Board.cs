@@ -57,7 +57,7 @@ namespace chess_console.board
 
         public bool IsValidPosition(Position position)
         {
-            if (position.Line < 0 || position.Line > Lines || position.Column < 0 || position.Column > Columns)
+            if (position.Line < 0 || position.Line >= Lines || position.Column < 0 || position.Column >= Columns)
             {
                 return false;
             }

@@ -12,6 +12,11 @@ namespace chess_console.chess
 
         }
 
+        public override bool[,] PosibleMovements()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             return "B";
