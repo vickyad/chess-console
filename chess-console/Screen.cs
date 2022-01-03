@@ -11,13 +11,36 @@ namespace chess_console
         {
             for (int i = 0; i < board.Columns; i++)
             {
+                Console.Write($"{8 - i} ");
                 for (int j = 0; j < board.Lines; j++)
                 {
                     Piece piece = board.GetPiece(i, j);
-                    Console.Write(piece == null ? "- " : $"{piece} ");
+                    if (piece == null)
+                    {
+                        Console.Write("- ");
+                    }
+                    else {
+                        PrintPiece(piece);
+                        Console.Write(" ");
+                    }
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine("  a b c d e f g h");
+        }
+
+        public static void PrintPiece(Piece piece)
+        {
+            if(piece.Color == Color.White)
+            {
+                Console.Write(piece);
+            }
+            else {
+                ConsoleColor currentForegroundColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write(piece);
+                Console.ForegroundColor = currentForegroundColor;
+            } 
         }
     }
 }
