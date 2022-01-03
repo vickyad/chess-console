@@ -43,6 +43,18 @@ namespace chess_console.board
             piece.Position = position;
         }
 
+        public Piece RemovePiece(Position position)
+        {
+            if (GetPiece(position) == null)
+            {
+                return null;
+            }
+            Piece removedPiece = GetPiece(position);
+            removedPiece.Position = null;
+            _pieces[position.Line, position.Column] = null;
+            return removedPiece;
+        }
+
         public bool IsValidPosition(Position position)
         {
             if (position.Line < 0 || position.Line > Lines || position.Column < 0 || position.Column > Columns)

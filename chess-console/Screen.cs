@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using chess_console.board;
+using chess_console.chess;
 
 namespace chess_console
 {
@@ -41,6 +42,14 @@ namespace chess_console
                 Console.Write(piece);
                 Console.ForegroundColor = currentForegroundColor;
             } 
+        }
+
+        public static ChessPosition ReadChessPosition()
+        {
+            string input = Console.ReadLine();
+            char column = input[0];
+            int line = int.Parse(input[1].ToString());
+            return new ChessPosition(line, column);
         }
     }
 }

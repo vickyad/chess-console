@@ -18,5 +18,10 @@ namespace chess_console.board
             Position = null;
             MovementsCount = 0;
         }
+        
+        public void IncrementMovementsCount()
+        {
+            MovementsCount++;
+        }
     }
 }
