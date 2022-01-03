@@ -17,9 +17,15 @@ namespace chess_console.board
             _pieces = new Piece[lines, columns];
         }
 
-        public Piece getPiece(int line, int column)
+        public Piece GetPiece(int line, int column)
         {
             return _pieces[line, column];
+        }
+
+        public void PlacePiece(Piece piece, Position position)
+        {
+            _pieces[position.Line, position.Column] = piece;
+            piece.Position = position;
         }
     }
 }

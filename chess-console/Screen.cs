@@ -13,7 +13,7 @@ namespace chess_console
             {
                 for (int j = 0; j < board.Lines; j++)
                 {
-                    Piece piece = board.getPiece(i, j);
+                    Piece piece = board.GetPiece(i, j);
                     Console.Write(piece == null ? "- " : $"{piece} ");
                 }
                 Console.WriteLine();
