@@ -14,6 +14,7 @@ namespace chess_console.chess
         public Board Board { get; private set; }
         public int Turn { get; private set; }
         public bool Ended { get; private set; }
+        public bool Check { get; private set; }
 
 
         public ChessMatch()
@@ -22,6 +23,7 @@ namespace chess_console.chess
             CurrentPlayer = Color.White;
             Board = new Board(8, 8);
             Ended = false;
+            Check = false;
             _pieces = new HashSet<Piece>();
             _capturedPieces = new HashSet<Piece>();
             PlacePieces();
@@ -32,14 +34,65 @@ namespace chess_console.chess
             CurrentPlayer = CurrentPlayer == Color.White ? Color.Black : Color.White;
         }
 
+        private Color Opponent(Color color)
+        {
+            return color == Color.White ? Color.Black : Color.White;
+        }
+
+        private Piece GetKing(Color color)
+        {
+            foreach (Piece piece in PiecesInGame(color))
+            {
+                if (piece is King)
+                {
+                    return piece;
+                }
+            }
+            return null;
+        }
+
+        public bool IsInCheck(Color color)
+        {
+            Piece king = GetKing(color);
+            if (king == null)
+            {
+                throw new BoardException($"There is no {color} king in the board");
+            }
+
+            foreach (Piece piece in PiecesInGame(Opponent(color)))
+            {
+                bool[,] posibleMovements = piece.PosibleMovements();
+                if (posibleMovements[king.Position.Line, king.Position.Column])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void PlayTurn(Position origin, Position destiny)
         {
-            MovePiece(origin, destiny);
+            Piece capturedPiece = DoMovement(origin, destiny);
+            if (IsInCheck(CurrentPlayer))
+            {
+                UndoMovement(origin, destiny, capturedPiece);
+                throw new BoardException("You cannot put yourself in check");
+            }
+
+            if (IsInCheck(Opponent(CurrentPlayer)))
+            {
+                Check = true;
+            }
+            else
+            {
+                Check = false;
+            }
+
             Turn++;
             ChangePlayer();
         }
 
-        public void MovePiece(Position origin, Position destiny)
+        public Piece DoMovement(Position origin, Position destiny)
         {
             Piece pieceInMoviment = Board.RemovePiece(origin);
             pieceInMoviment.IncrementMovementsCount();
@@ -50,6 +103,20 @@ namespace chess_console.chess
             {
                 _capturedPieces.Add(capturedPiece);
             }
+            return capturedPiece;
+        }
+
+        public void UndoMovement(Position origin, Position destiny, Piece capturedPiece)
+        {
+            Piece piece = Board.RemovePiece(destiny);
+            piece.DecrementMovementCount();
+
+            if (capturedPiece != null)
+            {
+                Board.PlacePiece(capturedPiece, destiny);
+                _capturedPieces.Remove(capturedPiece);
+            }
+            Board.PlacePiece(piece, origin);
         }
 
         public void ValidateOriginPosition(Position position)

@@ -29,6 +29,11 @@ namespace chess_console.board
             MovementsCount++;
         }
 
+        public void DecrementMovementCount()
+        {
+            MovementsCount--;
+        }
+
         public bool HasPosibleMovements()
         {
             bool[,] posibleMoviments = PosibleMovements();
