@@ -12,9 +12,77 @@ namespace chess_console.chess
 
         }
 
+        private bool HasEnemy(Position position)
+        {
+            Piece piece = Board.GetPiece(position);
+            return piece != null && piece.Color != Color;
+        } 
+
+        private bool IsEmpty(Position position)
+        {
+            return Board.GetPiece(position) == null;
+        }
+
         public override bool[,] PosibleMovements()
         {
-            throw new NotImplementedException();
+            bool[,] posibleMovements = new bool[Board.Lines, Board.Columns];
+
+            Position posiblePosition = new Position(0, 0);
+
+            if (Color == Color.White)
+            {
+                posiblePosition.DefineValues(Position.Line - 1, Position.Column);
+                if (Board.IsValidPosition(posiblePosition) && IsEmpty(posiblePosition))
+                {
+                    posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+                
+                    posiblePosition.DefineValues(Position.Line - 2, Position.Column);
+                    if (Board.IsValidPosition(posiblePosition) && IsEmpty(posiblePosition) && MovementsCount == 0)
+                    {
+                        posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+                    }
+                }
+
+                posiblePosition.DefineValues(Position.Line - 1, Position.Column - 1);
+                if (Board.IsValidPosition(posiblePosition) && HasEnemy(posiblePosition))
+                {
+                    posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+                }
+
+                posiblePosition.DefineValues(Position.Line - 1, Position.Column + 1);
+                if (Board.IsValidPosition(posiblePosition) && HasEnemy(posiblePosition))
+                {
+                    posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+                }
+            }
+            else
+            {
+                posiblePosition.DefineValues(Position.Line + 1, Position.Column);
+                if (Board.IsValidPosition(posiblePosition) && IsEmpty(posiblePosition))
+                {
+                    posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+
+                    posiblePosition.DefineValues(Position.Line + 2, Position.Column);
+                    if (Board.IsValidPosition(posiblePosition) && IsEmpty(posiblePosition) && MovementsCount == 0)
+                    {
+                        posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+                    }
+                }
+
+                posiblePosition.DefineValues(Position.Line + 1, Position.Column - 1);
+                if (Board.IsValidPosition(posiblePosition) && HasEnemy(posiblePosition))
+                {
+                    posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+                }
+
+                posiblePosition.DefineValues(Position.Line + 1, Position.Column + 1);
+                if (Board.IsValidPosition(posiblePosition) && HasEnemy(posiblePosition))
+                {
+                    posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+                }
+            }
+
+            return posibleMovements;
         }
 
         public override string ToString()

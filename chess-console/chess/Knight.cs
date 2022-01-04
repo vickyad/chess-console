@@ -14,7 +14,59 @@ namespace chess_console.chess
 
         public override bool[,] PosibleMovements()
         {
-            throw new NotImplementedException();
+            bool[,] posibleMovements = new bool[Board.Lines, Board.Columns];
+
+            Position posiblePosition = new Position(0, 0);
+
+            posiblePosition.DefineValues(Position.Line - 1, Position.Column - 2);
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+            }
+
+            posiblePosition.DefineValues(Position.Line - 2, Position.Column - 1);
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+            }
+
+            posiblePosition.DefineValues(Position.Line - 2, Position.Column + 1);
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+            }
+
+            posiblePosition.DefineValues(Position.Line - 1, Position.Column + 2);
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+            }
+
+            posiblePosition.DefineValues(Position.Line + 1, Position.Column + 2);
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+            }
+
+            posiblePosition.DefineValues(Position.Line + 2, Position.Column + 1);
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+            }
+
+            posiblePosition.DefineValues(Position.Line + 2, Position.Column - 1);
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+            }
+
+            posiblePosition.DefineValues(Position.Line + 1, Position.Column - 2);
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
+            {
+                posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+            }
+
+            return posibleMovements;
         }
 
         public override string ToString()
