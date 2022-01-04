@@ -7,9 +7,20 @@ namespace chess_console.chess
 {
     class King : Piece
     {
-        public King(Board board, Color color) : base(board, color)
+        private ChessMatch _match;
+        public King(Board board, Color color, ChessMatch match) : base(board, color)
         {
+            _match = match; 
+        }
 
+        private bool RookAvailableForCastling(Position position)
+        {
+            Piece rookForPlay = Board.GetPiece(position);
+            if (rookForPlay != null && rookForPlay is Rook && rookForPlay.Color == Color && rookForPlay.MovementsCount == 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public override bool[,] PosibleMovements()
@@ -72,6 +83,22 @@ namespace chess_console.chess
             if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
+            }
+
+            // Special Play: Castling
+            if (MovementsCount == 0 && !_match.Check)
+            {
+                // Short-side Castling
+                if (RookAvailableForCastling(new Position(Position.Line, Position.Column + 3)) && Board.GetPiece(Position.Line, Position.Column + 1) == null && Board.GetPiece(Position.Line, Position.Column + 2) == null)
+                {
+                    posibleMovements[Position.Line, Position.Column + 2] = true;
+                }
+
+                // Long-side Castling
+                if (RookAvailableForCastling(new Position(Position.Line, Position.Column - 4)) && Board.GetPiece(Position.Line, Position.Column - 1) == null && Board.GetPiece(Position.Line, Position.Column - 2) == null && Board.GetPiece(Position.Line, Position.Column - 3) == null)
+                {
+                    posibleMovements[Position.Line, Position.Column - 2] = true;
+                }
             }
 
             return posibleMovements;
