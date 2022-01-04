@@ -111,6 +111,21 @@ namespace chess_console.chess
                 UndoMovement(origin, destiny, capturedPiece);
                 throw new BoardException("You cannot put yourself in check");
             }
+            
+            Piece movedPiece = Board.GetPiece(destiny);
+            
+            // Special Play: Promotion
+            if (movedPiece is Pawn)
+            {
+                if ((movedPiece.Color == Color.White && destiny.Line == 0) || (movedPiece.Color == Color.Black && destiny.Line == 7))
+                {
+                    movedPiece = Board.RemovePiece(destiny);
+                    _pieces.Remove(movedPiece);
+                    Piece queen = new Queen(Board, movedPiece.Color);
+                    Board.PlacePiece(queen, destiny);
+                    _pieces.Add(queen);
+                }
+            }
 
             if (IsInCheck(Opponent(CurrentPlayer)))
             {
@@ -130,7 +145,6 @@ namespace chess_console.chess
                 Turn++;
                 ChangePlayer();
             
-                Piece movedPiece = Board.GetPiece(destiny);
 
                 // Special Play: En Passant
                 if (movedPiece is Pawn && (destiny.Line == origin.Line - 2 || destiny.Line == origin.Line + 2))
