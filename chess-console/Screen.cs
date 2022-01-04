@@ -8,6 +8,16 @@ namespace chess_console
 {
     class Screen
     {
+
+        public static void PrintMatch(ChessMatch match)
+        {
+            PrintBoard(match.Board);
+            Console.WriteLine();
+            PrintCapturedPieces(match);
+            Console.WriteLine($"\n\nTurn: {match.Turn}");
+            Console.WriteLine($"Current player: {match.CurrentPlayer}");
+        }
+
         public static void PrintBoard(Board board)
         {
             for (int i = 0; i < board.Columns; i++)
@@ -61,6 +71,28 @@ namespace chess_console
                 }
                 Console.Write(" ");
             }
+        }
+
+        public static void PrintSet(HashSet<Piece> set)
+        {
+            Console.Write("[");
+            foreach (Piece piece in set)
+            {
+                Console.Write($"{piece} ");
+            }
+            Console.Write("]");
+        }
+
+        public static void PrintCapturedPieces(ChessMatch match)
+        {
+            Console.WriteLine("Captured pieces");
+            Console.Write("White: ");
+            PrintSet(match.CapturedPieces(Color.White));
+            Console.Write("\nBlack: ");
+            ConsoleColor originalForegroundColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Blue;
+            PrintSet(match.CapturedPieces(Color.Black));
+            Console.ForegroundColor = originalForegroundColor;
         }
 
         public static ChessPosition ReadChessPosition()

@@ -17,10 +17,7 @@ namespace chess_console
                     try
                     {
                         Console.Clear();
-                        Screen.PrintBoard(match.Board);
-
-                        Console.WriteLine($"\nTurn: {match.Turn}");
-                        Console.WriteLine($"Current player: {match.CurrentPlayer}");
+                        Screen.PrintMatch(match);
 
                         Console.WriteLine();
                         Console.Write("Origin: ");
