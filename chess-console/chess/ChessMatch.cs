@@ -70,6 +70,38 @@ namespace chess_console.chess
             return false;
         }
 
+        public bool IsInCheckMate(Color color)
+        {
+            if (!IsInCheck(color))
+            {
+                return false;
+            }
+            foreach (Piece piece in PiecesInGame(color))
+            {
+                bool[,] posibleMovements = piece.PosibleMovements();
+                for (int i = 0; i < Board.Lines; i++)
+                {
+                    for (int j = 0; j < Board.Columns; j++)
+                    {
+                        if (posibleMovements[i, j])
+                        {
+                            Position origin = piece.Position;
+                            Position destiny = new Position(i, j);
+                            Piece capturedPiece = DoMovement(origin, destiny);
+                            bool check = IsInCheck(color);
+                            UndoMovement(origin, destiny, capturedPiece);
+
+                            if (!check)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public void PlayTurn(Position origin, Position destiny)
         {
             Piece capturedPiece = DoMovement(origin, destiny);
@@ -88,8 +120,15 @@ namespace chess_console.chess
                 Check = false;
             }
 
-            Turn++;
-            ChangePlayer();
+            if (IsInCheckMate(Opponent(CurrentPlayer)))
+            {
+                Ended = true;
+            } 
+            else
+            {
+                Turn++;
+                ChangePlayer();
+            }
         }
 
         public Piece DoMovement(Position origin, Position destiny)
@@ -178,6 +217,7 @@ namespace chess_console.chess
 
         private void PlacePieces()
         {
+            /*
             PlaceOnePiece(1, 'c', new Rook(Board, Color.White));
             PlaceOnePiece(2, 'c', new Rook(Board, Color.White));
             PlaceOnePiece(2, 'd', new Rook(Board, Color.White));
@@ -191,6 +231,14 @@ namespace chess_console.chess
             PlaceOnePiece(7, 'e', new Rook(Board, Color.Black));
             PlaceOnePiece(8, 'e', new Rook(Board, Color.Black));
             PlaceOnePiece(8, 'd', new King(Board, Color.Black));
+            */
+            
+            PlaceOnePiece(1, 'c', new Rook(Board, Color.White));
+            PlaceOnePiece(1, 'd', new King(Board, Color.White));
+            PlaceOnePiece(7, 'h', new Rook(Board, Color.White));
+
+            PlaceOnePiece(8, 'a', new King(Board, Color.Black));
+            PlaceOnePiece(8, 'b', new Rook(Board, Color.Black));
         }
     }
 }
