@@ -217,28 +217,39 @@ namespace chess_console.chess
 
         private void PlacePieces()
         {
-            /*
-            PlaceOnePiece(1, 'c', new Rook(Board, Color.White));
-            PlaceOnePiece(2, 'c', new Rook(Board, Color.White));
-            PlaceOnePiece(2, 'd', new Rook(Board, Color.White));
-            PlaceOnePiece(2, 'e', new Rook(Board, Color.White));
-            PlaceOnePiece(1, 'e', new Rook(Board, Color.White));
-            PlaceOnePiece(1, 'd', new King(Board, Color.White));
+            PlaceOnePiece(1, 'a', new Rook(Board, Color.White));
+            PlaceOnePiece(1, 'b', new Knight(Board, Color.White));
+            PlaceOnePiece(1, 'c', new Bishop(Board, Color.White));
+            PlaceOnePiece(1, 'd', new Queen(Board, Color.White));
+            PlaceOnePiece(1, 'e', new King(Board, Color.White));
+            PlaceOnePiece(1, 'f', new Bishop(Board, Color.White));
+            PlaceOnePiece(1, 'g', new Knight(Board, Color.White));
+            PlaceOnePiece(1, 'h', new Rook(Board, Color.White));
+            PlaceOnePiece(2, 'a', new Pawn(Board, Color.White));
+            PlaceOnePiece(2, 'b', new Pawn(Board, Color.White));
+            PlaceOnePiece(2, 'c', new Pawn(Board, Color.White));
+            PlaceOnePiece(2, 'd', new Pawn(Board, Color.White));
+            PlaceOnePiece(2, 'e', new Pawn(Board, Color.White));
+            PlaceOnePiece(2, 'f', new Pawn(Board, Color.White));
+            PlaceOnePiece(2, 'g', new Pawn(Board, Color.White));
+            PlaceOnePiece(2, 'h', new Pawn(Board, Color.White));
 
-            PlaceOnePiece(7, 'c', new Rook(Board, Color.Black));
-            PlaceOnePiece(8, 'c', new Rook(Board, Color.Black));
-            PlaceOnePiece(7, 'd', new Rook(Board, Color.Black));
-            PlaceOnePiece(7, 'e', new Rook(Board, Color.Black));
-            PlaceOnePiece(8, 'e', new Rook(Board, Color.Black));
-            PlaceOnePiece(8, 'd', new King(Board, Color.Black));
-            */
-            
-            PlaceOnePiece(1, 'c', new Rook(Board, Color.White));
-            PlaceOnePiece(1, 'd', new King(Board, Color.White));
-            PlaceOnePiece(7, 'h', new Rook(Board, Color.White));
-
-            PlaceOnePiece(8, 'a', new King(Board, Color.Black));
-            PlaceOnePiece(8, 'b', new Rook(Board, Color.Black));
+            PlaceOnePiece(8, 'a', new Rook(Board, Color.Black));
+            PlaceOnePiece(8, 'b', new Knight(Board, Color.Black));
+            PlaceOnePiece(8, 'c', new Bishop(Board, Color.Black));
+            PlaceOnePiece(8, 'd', new Queen(Board, Color.Black));
+            PlaceOnePiece(8, 'e', new King(Board, Color.Black));
+            PlaceOnePiece(8, 'f', new Bishop(Board, Color.Black));
+            PlaceOnePiece(8, 'g', new Knight(Board, Color.Black));
+            PlaceOnePiece(8, 'h', new Rook(Board, Color.Black));
+            PlaceOnePiece(7, 'a', new Pawn(Board, Color.Black));
+            PlaceOnePiece(7, 'b', new Pawn(Board, Color.Black));
+            PlaceOnePiece(7, 'c', new Pawn(Board, Color.Black));
+            PlaceOnePiece(7, 'd', new Pawn(Board, Color.Black));
+            PlaceOnePiece(7, 'e', new Pawn(Board, Color.Black));
+            PlaceOnePiece(7, 'f', new Pawn(Board, Color.Black));
+            PlaceOnePiece(7, 'g', new Pawn(Board, Color.Black));
+            PlaceOnePiece(7, 'h', new Pawn(Board, Color.Black));
         }
     }
 }
