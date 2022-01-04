@@ -20,56 +20,56 @@ namespace chess_console.chess
 
             // UP
             posiblePosition.DefineValues(Position.Line - 1, Position.Column);
-            if (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
             }
 
             // UP-RIGHT
             posiblePosition.DefineValues(Position.Line - 1, Position.Column + 1);
-            if (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
             }
 
             // RIGHT
             posiblePosition.DefineValues(Position.Line, Position.Column + 1);
-            if (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
             }
 
             // DOWN-RIGHT
             posiblePosition.DefineValues(Position.Line + 1, Position.Column + 1);
-            if (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
             }
 
             // DOWN
             posiblePosition.DefineValues(Position.Line, Position.Column);
-            if (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
             }
 
             // DOWN-LEFT
             posiblePosition.DefineValues(Position.Line + 1, Position.Column - 1);
-            if (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
             }
 
             // LEFT
             posiblePosition.DefineValues(Position.Line, Position.Column - 1);
-            if (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
             }
 
             // UP-LEFT
             posiblePosition.DefineValues(Position.Line - 1, Position.Column - 1);
-            if (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            if (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
             }

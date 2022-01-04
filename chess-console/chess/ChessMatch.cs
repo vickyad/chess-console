@@ -7,18 +7,30 @@ namespace chess_console.chess
 {
     class ChessMatch
     {
-        private int _turn;
-        private Color _currentPlayer;
+        public Color CurrentPlayer { get; private set; }
         public Board Board { get; private set; }
+        public int Turn { get; private set; }
         public bool Ended { get; private set; }
 
         public ChessMatch()
         {
-            _turn = 1;
-            _currentPlayer = Color.White;
+            Turn = 1;
+            CurrentPlayer = Color.White;
             Board = new Board(8, 8);
             Ended = false;
             PlacePieces();
+        }
+
+        private void ChangePlayer()
+        {
+            CurrentPlayer = CurrentPlayer == Color.White ? Color.Black : Color.White;
+        }
+
+        public void PlayTurn(Position origin, Position destiny)
+        {
+            MovePiece(origin, destiny);
+            Turn++;
+            ChangePlayer();
         }
 
         public void MovePiece(Position origin, Position destiny)
@@ -27,6 +39,30 @@ namespace chess_console.chess
             pieceInMoviment.IncrementMovementsCount();
             Piece capturedPiece = Board.RemovePiece(destiny);
             Board.PlacePiece(pieceInMoviment, destiny);
+        }
+
+        public void ValidateOriginPosition(Position position)
+        {
+            if (Board.GetPiece(position) == null)
+            {
+                throw new BoardException("Can't choose a place without a piece");
+            }
+            if (Board.GetPiece(position).Color != CurrentPlayer)
+            {
+                throw new BoardException($"It's {CurrentPlayer} turn. Choose the correct color");
+            }
+            if (!Board.GetPiece(position).HasPosibleMovements())
+            {
+                throw new BoardException("There is no available movements for this piece");
+            }
+        }
+
+        public void ValidateDestinyPosition(Position origin, Position destiny)
+        {
+            if (!Board.GetPiece(origin).CanMoveTo(destiny))
+            {
+                throw new BoardException("Invalid destiny position");
+            }
         }
 
         private void PlacePieces()

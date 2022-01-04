@@ -14,21 +14,34 @@ namespace chess_console
 
                 while (!match.Ended)
                 {
-                    Console.Clear();
-                    Screen.PrintBoard(match.Board);
+                    try
+                    {
+                        Console.Clear();
+                        Screen.PrintBoard(match.Board);
 
-                    Console.WriteLine();
-                    Console.Write("Origin: ");
-                    Position origin = Screen.ReadChessPosition().ToPosition();
+                        Console.WriteLine($"\nTurn: {match.Turn}");
+                        Console.WriteLine($"Current player: {match.CurrentPlayer}");
 
-                    bool[,] posibleMovements = match.Board.GetPiece(origin).PosibleMovements();
-                    Console.Clear();
-                    Screen.PrintBoard(match.Board, posibleMovements);
+                        Console.WriteLine();
+                        Console.Write("Origin: ");
+                        Position origin = Screen.ReadChessPosition().ToPosition();
+                        match.ValidateOriginPosition(origin);
 
-                    Console.Write("Destiny: ");
-                    Position destiny = Screen.ReadChessPosition().ToPosition();
+                        bool[,] posibleMovements = match.Board.GetPiece(origin).PosibleMovements();
+                        Console.Clear();
+                        Screen.PrintBoard(match.Board, posibleMovements);
 
-                    match.MovePiece(origin, destiny);
+                        Console.Write("Destiny: ");
+                        Position destiny = Screen.ReadChessPosition().ToPosition();
+                        match.ValidateDestinyPosition(origin, destiny);
+
+                        match.PlayTurn(origin, destiny);
+                    }
+                    catch (BoardException exception)
+                    {
+                        Console.WriteLine(exception.Message);
+                        Console.ReadLine();
+                    }
                 }
 
                 Screen.PrintBoard(match.Board);

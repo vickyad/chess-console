@@ -20,7 +20,7 @@ namespace chess_console.chess
 
             // UP
             posiblePosition.DefineValues(Position.Line - 1, Position.Column);
-            while(Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            while(Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
 
@@ -33,7 +33,7 @@ namespace chess_console.chess
 
             // DOWN
             posiblePosition.DefineValues(Position.Line + 1, Position.Column);
-            while (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            while (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
 
@@ -46,7 +46,7 @@ namespace chess_console.chess
 
             // RIGHT
             posiblePosition.DefineValues(Position.Line, Position.Column + 1);
-            while (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            while (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
 
@@ -59,7 +59,7 @@ namespace chess_console.chess
 
             // LEFT
             posiblePosition.DefineValues(Position.Line, Position.Column - 1);
-            while (Board.IsValidPosition(posiblePosition) && CanMoveTo(posiblePosition))
+            while (Board.IsValidPosition(posiblePosition) && IsValidMove(posiblePosition))
             {
                 posibleMovements[posiblePosition.Line, posiblePosition.Column] = true;
 

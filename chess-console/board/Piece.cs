@@ -18,7 +18,7 @@ namespace chess_console.board
             Position = null;
             MovementsCount = 0;
         }
-        protected bool CanMoveTo(Position position)
+        protected bool IsValidMove(Position position)
         {
             Piece piece = Board.GetPiece(position);
             return piece == null || piece.Color != Color;
@@ -27,6 +27,27 @@ namespace chess_console.board
         public void IncrementMovementsCount()
         {
             MovementsCount++;
+        }
+
+        public bool HasPosibleMovements()
+        {
+            bool[,] posibleMoviments = PosibleMovements();
+            for(int i = 0; i < Board.Lines; i++)
+            {
+                for (int j = 0; j < Board.Columns; j++)
+                {
+                    if (posibleMoviments[i, j] == true)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool CanMoveTo(Position position)
+        {
+            return PosibleMovements()[position.Line, position.Column];
         }
 
         public abstract bool[,] PosibleMovements();
